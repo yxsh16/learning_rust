@@ -1,6 +1,9 @@
 fn main() {
     //println!("Hello World");
 
+    // Every variable by default is immutable.
+    // Which is one of the reasons rust is faster than JS.
+
     let x: i8 = 2; // This is an immutable variable
     let y: i8 = 5;
     let z = -7;
@@ -59,3 +62,20 @@ fn get_first_word(sentence: String) -> String {
     }
     return res;
 }
+
+/*
+
+Memory management
+Heap Vs Stack
+
+Stack:
+    * Variables with fixed size are stored in stack as stack frame
+    * Stack has very fast allocation deallocation
+    * Stack size is allocated at compile time
+
+Heap:
+    * Variables like strings/dynamic arr that can grow at runtime are stored in heap
+    * Heaps are slower as compared to stacks
+    * length, capacity and pointer to a heap data is stored in stack
+
+*/
