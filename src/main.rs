@@ -16,13 +16,13 @@ fn main() {
     let is_present: bool = true;
     let is_pass: bool = false;
 
-    // Strings
-    let my_str: String = String::from("This is a string");
+    // ? Strings
+    let my_str = String::from("This is a string");
     let str2: &str = "This is a string";
     println!("{}", my_str);
 
     // Printing nth character of a string
-    //print!("{}", my_str.chars().nth(0));  // This won't work
+    //print!("{}", my_str.chars().nth(0));   //! This won't work
 
     let char1: Option<char> = my_str.chars().nth(2);
 
@@ -31,7 +31,7 @@ fn main() {
         None => println!("No character at index"),
     }
 
-    // Conditionals
+    // ? Conditionals
     let is_even: bool = true;
 
     if is_even {
@@ -40,36 +40,62 @@ fn main() {
         println!("The num is odd");
     }
 
-    // Loops
+    // ? Loops
     for i in 0..5 {
         println!("{}", i);
     }
 
-    // Functions
+    // ? Functions
 
     let sentence = String::from("This is a sentence");
     let first_word = get_first_word(sentence);
     println!("The first word is: {}", first_word);
 
-    // Ownership
+    // ? Ownership
 
     let var_x: i8 = 1; // Created on stack, owner is main fn
     let var_y: i8 = 2; // Created on stack, owner is main fn
     println!("{}", sum(var_x, var_y));
 
-    // Scoping variables in same function:
+
+    // ? Scoping variables in same function:
     let some_var: i8 = 3;
     {
-        let some_var2: i8 = 4; // cannot be accessed outside this scope
+        let some_var2: i8 = 4; // ! cannot be accessed outside this scope
     }
 
-    println!("{}", some_var2); // Throws error
+    //println!("{}", some_var2); // ! Throws error
+
+
+    // ? Bringing back ownership to original owner:
+
+    let mut any_str = String::from("HELLO");
+    any_str = takes_ownership(any_str);
+    println!("any_str {}", any_str);
+
+
+    // ? Borrowing the variable
+
+    let my_str = String::from("Hello");
+    borrow_var(&my_str);
+    print!("my_str: {}", my_str);
+
+
+    // ? Modifying a string while borrowed
+
+
+
+
+
+    
 }
+
 
 fn sum(i: i8, j: i8) -> i8 {
     let var_z: i8 = i + j; // i and j are created seperatley on stack, owner is sum fn
     return var_z;
 }
+
 
 fn get_first_word(sentence: String) -> String {
     let mut res = String::new();
@@ -82,17 +108,29 @@ fn get_first_word(sentence: String) -> String {
     return res;
 }
 
+
+fn takes_ownership(other_str: String) -> String {
+    println!("other_str {}", other_str);
+    return other_str;
+}
+
+// ? Borrowing: Pass by reference
+
+fn borrow_var(borrower: &String) {
+    println!("borrower: {}", borrower);
+}
+
 /*
 
-Memory management
-Heap Vs Stack
+    ? Memory management
+    Heap Vs Stack
 
-Stack:
+    Stack:
     * Variables with fixed size are stored in stack as stack frame
     * Stack has very fast allocation deallocation
     * Stack size is allocated at compile time
 
-Heap:
+    Heap:
     * Variables like strings/dynamic arr that can grow at runtime are stored in heap
     * Heaps are slower as compared to stacks
     * length, capacity and pointer to a heap data is stored in stack
@@ -101,7 +139,7 @@ Heap:
 
 /*
 
-Ownership
+    ? Ownership
 
     * Memory is managed through a system of ownership with a set of rules that the compiler checks.
     * If any of the rules are violated, the program wont compile.
@@ -127,7 +165,7 @@ Ownership
 
 
 
-    Two pointers pointing at same object (two owners) can not happen
+    ! Two pointers pointing at same object (two owners) can not happen
 
             STACK                               HEAP
     |-------------------|               |-------------------|
@@ -168,9 +206,27 @@ Ownership
     |                   |               |                   |
     |-------------------|               |-------------------|
 
+*/
+
+/*
+    ? Borrowing: Pass by reference
+
+    * A string can be borrowed by another variable by passing it as reference.
+    * The borrowed string will be owned by the function
+    * The original string will not be affected
+    * If the borrower no longer exists, the original string will remain uneffected
+    * The string can not be modified while borrowed   
+
+*/
+
+/*
+
+    ? Modifying a string while borrowed
 
 
 
 
 
 */
+
+
